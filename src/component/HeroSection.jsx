@@ -1,8 +1,9 @@
-import React, {useEffect, useRef} from "react";
-import GradientWaves from "./GradientWaves";
+import React, { Suspense, lazy, useEffect, useRef } from "react";
 import Navbar from "./Navbar";
-import SplitFlapText from "./SplitFlapText";
-import SpecularButton from "./SpecularButton";
+
+const GradientWaves = lazy(() => import("./GradientWaves"));
+const SplitFlapText = lazy(() => import("./SplitFlapText"));
+const SpecularButton = lazy(() => import("./SpecularButton"));
 
 const HeroSection = () => {
     const navRef = useRef(null);
@@ -33,29 +34,31 @@ const HeroSection = () => {
       className="absolute inset-0 z-10 top-[100vh] flex h-full w-full items-end overflow-hidden"
       ref={navRef}
     >
-      <GradientWaves
-        horizonColor="#5227FF"
-        waveColor="#FF9FFC"
-        crestColor="#DA70D6"
-        speed={0.4}
-        amplitude={2.5}
-        waveScale={0.6}
-        waveRatio={0.9}
-        swell={35}
-        turbulence={20}
-        tilt={1.11}
-        zoom={1}
-        height={5.5}
-        fogDepth={15}
-        detail="medium"
-        brightness={1}
-        opacity={1}
-        mouseInteraction
-        parallaxStrength={0.5}
-        grain
-        grainIntensity={0.05}
-        className="*:absolute inset-0 z-10 h-full w-full block min-h-screen"
-      />
+      <Suspense fallback={<div className="absolute inset-0 z-10 h-full w-full bg-[radial-gradient(circle_at_top,_#5227FF,_#111827_60%,_#000000)]" />}>
+        <GradientWaves
+          horizonColor="#5227FF"
+          waveColor="#FF9FFC"
+          crestColor="#DA70D6"
+          speed={0.4}
+          amplitude={2.5}
+          waveScale={0.6}
+          waveRatio={0.9}
+          swell={35}
+          turbulence={20}
+          tilt={1.11}
+          zoom={1}
+          height={5.5}
+          fogDepth={15}
+          detail="medium"
+          brightness={1}
+          opacity={1}
+          mouseInteraction
+          parallaxStrength={0.5}
+          grain
+          grainIntensity={0.05}
+          className="*:absolute inset-0 z-10 h-full w-full block min-h-screen"
+        />
+      </Suspense>
       <div className="absolute h-screen p-10 z-20 w-full" id="hero-nav">
         <Navbar />
         <div className="h-[80%] flex justify-center items-center mt-10">
@@ -65,21 +68,23 @@ const HeroSection = () => {
             </h1>
             <h2 className="text-6xl font-semibold text-purple-950/60 text-shadow-[8px_8px_4px_#CF9FFF]/80">
               Frontend{" "}
-              <SplitFlapText
-                words={["DEVELOPER", "SYSTEM DESIGNER", "UI/UX DESIGNER"]}
-                flipDuration={0.12}
-                stagger={0.06}
-                cycleDelay={2400}
-                charset="alphanumeric"
-                flipsPerChar={8}
-                tileColor="#111827"
-                textColor="#f8fafc"
-                tileRadius={8}
-                gap={6}
-                fontSize={42}
-                loop
-                padTo={12}
-              />
+              <Suspense fallback={<span className="inline-block min-w-[260px] text-purple-950">DEVELOPER</span>}>
+                <SplitFlapText
+                  words={["DEVELOPER", "SYSTEM DESIGNER", "UI/UX DESIGNER"]}
+                  flipDuration={0.12}
+                  stagger={0.06}
+                  cycleDelay={2400}
+                  charset="alphanumeric"
+                  flipsPerChar={8}
+                  tileColor="#111827"
+                  textColor="#f8fafc"
+                  tileRadius={8}
+                  gap={6}
+                  fontSize={42}
+                  loop
+                  padTo={12}
+                />
+              </Suspense>
             </h2>
             <p className="text-gray-700 text-2xl mt-4 max-w-[80%] text-wrap">
               I'm a Frontend Developer with a passion for creating visually
@@ -89,28 +94,30 @@ const HeroSection = () => {
             </p>
             <br />
             <div className="w-[90%] flex justify-end items-center">
-              <SpecularButton
-                size="lg"
-                radius={18}
-                tint="#ffffff"
-                tintOpacity={0}
-                blur={8}
-                textColor="#000"
-                lineColor="#800080"
-                baseColor="#525252"
-                intensity={2}
-                shineSize={10}
-                shineFade={40}
-                thickness={1.5}
-                speed={0.8}
-                followMouse
-                proximity={250}
-                autoAnimate={true}
-                onClick={() => console.log("clicked")}
-                className="w-[30%] text-center text-2xl"
-              >
-                Resume
-              </SpecularButton>
+              <Suspense fallback={<button className="w-[30%] rounded-[18px] border border-purple-600 bg-slate-200 px-8 py-4 text-2xl text-black">Resume</button>}>
+                <SpecularButton
+                  size="lg"
+                  radius={18}
+                  tint="#ffffff"
+                  tintOpacity={0}
+                  blur={8}
+                  textColor="#000"
+                  lineColor="#800080"
+                  baseColor="#525252"
+                  intensity={2}
+                  shineSize={10}
+                  shineFade={40}
+                  thickness={1.5}
+                  speed={0.8}
+                  followMouse
+                  proximity={250}
+                  autoAnimate={true}
+                  onClick={() => console.log("clicked")}
+                  className="w-[30%] text-center text-2xl"
+                >
+                  Resume
+                </SpecularButton>
+              </Suspense>
             </div>
           </div>
           <div className="relative w-[35%] h-[60%] md:flex md:flex-col justify-evenly gap-14 hidden">
