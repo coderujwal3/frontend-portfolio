@@ -54,7 +54,7 @@ const PortfolioEntry = () => {
   return (
     <div className="relative min-h-[220vh] w-full overflow-visible bg-linear-to-b from-transparent to-purple-950 z-999">
       <ScrollExpand
-        src="/hero3.jpg"
+        src="/hero.jpg"
         alt=""
         title="Getting Bio..."
         scrollHint="Scroll Inside the Frame"

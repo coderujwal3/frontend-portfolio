@@ -1,5 +1,6 @@
 import React, { Suspense, lazy, useEffect, useRef } from "react";
 import Navbar from "./Navbar";
+import ProfileCard from "../component/ProfileCard";
 
 const GradientWaves = lazy(() => import("./GradientWaves"));
 const SplitFlapText = lazy(() => import("./SplitFlapText"));
@@ -30,15 +31,20 @@ const HeroSection = () => {
       requestAnimationFrame(animate);
     }, []);
   return (
-    <div
-      className="absolute inset-0 z-10 top-[100vh] flex h-full w-full items-end overflow-hidden"
+    <section
+      id="hero-nav"
+      className="relative z-10 w-full min-h-screen overflow-hidden"
       ref={navRef}
     >
-      <Suspense fallback={<div className="absolute inset-0 z-10 h-full w-full bg-[radial-gradient(circle_at_top,_#5227FF,_#111827_60%,_#000000)]" />}>
+      <Suspense
+        fallback={
+          <div className="absolute inset-0 z-10 h-full w-full bg-[radial-gradient(circle_at_top,#5227FF,#111827_60%,#000000)]" />
+        }
+      >
         <GradientWaves
           horizonColor="#5227FF"
-          waveColor="#FF9FFC"
-          crestColor="#DA70D6"
+          waveColor="##EE82EE"
+          crestColor="#B200ED"
           speed={0.4}
           amplitude={2.5}
           waveScale={0.6}
@@ -56,26 +62,33 @@ const HeroSection = () => {
           parallaxStrength={0.5}
           grain
           grainIntensity={0.05}
-          className="*:absolute inset-0 z-10 h-full w-full block min-h-screen"
+          className="*:absolute inset-0 z-10 block h-full w-full min-h-screen"
         />
       </Suspense>
-      <div className="absolute h-screen p-10 z-20 w-full" id="hero-nav">
+
+      <div className="absolute inset-0 z-20 h-screen w-full p-10" id="hero-nav">
         <Navbar />
-        <div className="h-[80%] flex justify-center items-center mt-10">
-          <div className="relative h-full md:w-[60%] flex flex-col flex-wrap top-[6vh] gap-4 p-4 pl-4">
+        <div className="mt-10 flex h-[80%] items-center justify-evenly">
+          <div className="relative top-[6vh] flex h-full flex-col flex-wrap gap-4 p-4 pl-4 md:w-[60%]">
             <h1 className="text-8xl font-bold text-purple-950 text-shadow-[5px_5px_0px_#800080]/80">
               Ujwal Singh
             </h1>
             <h2 className="text-6xl font-semibold text-purple-950/60 text-shadow-[8px_8px_4px_#CF9FFF]/80">
               Frontend{" "}
-              <Suspense fallback={<span className="inline-block min-w-[260px] text-purple-950">DEVELOPER</span>}>
+              <Suspense
+                fallback={
+                  <span className="inline-block min-w-65 text-purple-950">
+                    DEVELOPER
+                  </span>
+                }
+              >
                 <SplitFlapText
                   words={["DEVELOPER", "SYSTEM DESIGNER", "UI/UX DESIGNER"]}
                   flipDuration={0.12}
                   stagger={0.06}
                   cycleDelay={2400}
                   charset="alphanumeric"
-                  flipsPerChar={8}
+                  flipsPerChar={2}
                   tileColor="#111827"
                   textColor="#f8fafc"
                   tileRadius={8}
@@ -86,15 +99,21 @@ const HeroSection = () => {
                 />
               </Suspense>
             </h2>
-            <p className="text-gray-700 text-2xl mt-4 max-w-[80%] text-wrap">
+            <p className="mt-4 max-w-[80%] text-2xl text-gray-700 text-wrap">
               I'm a Frontend Developer with a passion for creating visually
               stunning and user-friendly web applications. I specialize in
               building responsive and interactive interfaces that provide
               seamless user experiences across devices.
             </p>
             <br />
-            <div className="w-[90%] flex justify-end items-center">
-              <Suspense fallback={<button className="w-[30%] rounded-[18px] border border-purple-600 bg-slate-200 px-8 py-4 text-2xl text-black">Resume</button>}>
+            <div className="flex w-[90%] items-center justify-end">
+              <Suspense
+                fallback={
+                  <button className="w-[30%] rounded-[18px] border border-purple-600 bg-slate-200 px-8 py-4 text-2xl text-black">
+                    Resume
+                  </button>
+                }
+              >
                 <SpecularButton
                   size="lg"
                   radius={18}
@@ -120,13 +139,28 @@ const HeroSection = () => {
               </Suspense>
             </div>
           </div>
-          <div className="relative w-[35%] h-[60%] md:flex md:flex-col justify-evenly gap-14 hidden">
-            <div className="absolute h-full w-full [clip-path:polygon(100%_0,0_0,100%_100%)] bg-[linear-gradient(135deg,#111827_0%,#800080_100%)] shadow-[0_0_20px_rgba(0,0,0,0.5)] rounded-full"></div>
-            <div className="absolute h-full w-full [clip-path:polygon(0_0,0_100%,100%_100%)] bg-[linear-gradient(135deg,#800080_0%,#111827_100%)] shadow-[0_0_20px_rgba(0,0,0,0.6)] rounded-full"></div>
+
+          <div className="hidden h-[60%] w-[28%] justify-evenly lg:flex md:flex-col translate-y-[-5vh]">
+            <ProfileCard
+              name=""
+              title="Frontend Developer"
+              handle="javicodes"
+              status="Online"
+              contactText="Contact Me"
+              avatarUrl="/MyPic.png"
+              showUserInfo={false}
+              enableTilt={true}
+              enableMobileTilt={false}
+              onContactClick={() => console.log("Contact clicked")}
+              behindGlowColor="rgba(125, 190, 255, 0.67)"
+              iconUrl="/assets/demo/iconpattern.png"
+              behindGlowEnabled
+              innerGradient="linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)"
+            />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
