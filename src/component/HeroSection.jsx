@@ -33,7 +33,7 @@ const HeroSection = () => {
   return (
     <section
       id="hero-nav"
-      className="relative z-10 w-full min-h-screen overflow-hidden"
+      className="relative isolate w-full min-h-screen overflow-hidden"
       ref={navRef}
     >
       <Suspense
@@ -56,24 +56,27 @@ const HeroSection = () => {
           height={5.5}
           fogDepth={15}
           detail="medium"
-          brightness={1}
+          brightness={0.8}
           opacity={1}
           mouseInteraction
           parallaxStrength={0.5}
           grain
           grainIntensity={0.05}
-          className="*:absolute inset-0 z-10 block h-full w-full min-h-screen"
+          className="*:absolute inset-0 -z-10 block h-full w-full min-h-screen"
         />
       </Suspense>
 
       <div className="absolute inset-0 z-20 h-screen w-full p-10" id="hero-nav">
+        {/* Navbar */}
         <Navbar />
+        
+        {/* Hero Section */}
         <div className="mt-10 flex h-[80%] items-center justify-evenly">
           <div className="relative top-[6vh] flex h-full flex-col flex-wrap gap-4 p-4 pl-4 md:w-[60%]">
-            <h1 className="text-8xl font-bold text-purple-950 text-shadow-[5px_5px_0px_#800080]/80">
+            <h1 className="text-[40px] md:text-6xl lg:text-8xl font-bold text-purple-950 text-shadow-[3px_3px_2px_#800080]/80 md:text-shadow-[4px_4px_0px_#800080]/80 lg:text-shadow-[5px_5px_0px_#800080]/80">
               Ujwal Singh
             </h1>
-            <h2 className="text-6xl font-semibold text-purple-950/60 text-shadow-[8px_8px_4px_#CF9FFF]/80">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-semibold text-purple-950/60 text-shadow-[8px_8px_4px_#CF9FFF]/80">
               Frontend{" "}
               <Suspense
                 fallback={

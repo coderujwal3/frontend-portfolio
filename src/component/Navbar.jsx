@@ -17,7 +17,7 @@ const Navbar = () => {
   return (
     <nav className="relative z-30 w-full px-4 py-3">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border border-white/10 px-3 py-2 backdrop-blur-md shadow-lg shadow-purple-950/70 md:px-5">
-        <div className="relative flex items-center justify-center md:h-20 md:w-20 z-20 border-2 border-[#B200ED] rounded-full">
+        <div className="relative flex items-center justify-center h-15 w-15 md:h-20 md:w-20 z-20 md:border-2 md:border-[#B200ED] rounded-full">
           <img
             src="/MyPic.jpeg"
             alt="hero-img"
@@ -32,7 +32,7 @@ const Navbar = () => {
               text="UJWAL*SINGH*"
               onHover="speedUp"
               spinDuration={15}
-              className="custom-class"
+              className="custom-class h-24 w-24 md:h-32.5 md:w-32.5"
             />
           </Suspense>
         </div>

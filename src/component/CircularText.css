@@ -1,8 +1,6 @@
 .circular-text {
   margin: 0 auto;
   border-radius: 50%;
-  width: 130px;
-  height: 130px;
   position: relative;
   font-weight: bold;
   color: #000;

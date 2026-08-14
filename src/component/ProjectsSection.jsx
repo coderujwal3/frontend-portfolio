@@ -29,8 +29,11 @@ const projects = [
 
 const ProjectsSection = () => {
   return (
-    <section id="projects" className="bg-slate-950 min-h-screen border-3 border-white/20 py-24 text-white md:py-28">
-      <div className="mx-auto max-w-6xl px-6 lg:px-8">
+    <section
+      id="projects"
+      className="relative bg-slate-950 min-h-screen border-3 border-white/20 py-24 text-white md:py-28"
+    >
+      <div className="z-30 mx-auto max-w-6xl px-6 lg:px-8">
         <div className="mb-12 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <span className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-cyan-400/50 bg-cyan-500/10 text-cyan-200">
