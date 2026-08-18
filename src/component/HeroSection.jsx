@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect, useRef } from "react";
+import React, { Suspense, lazy } from "react";
 import Navbar from "./Navbar";
 import ProfileCard from "../component/ProfileCard";
 
@@ -7,34 +7,10 @@ const SplitFlapText = lazy(() => import("./SplitFlapText"));
 const SpecularButton = lazy(() => import("./SpecularButton"));
 
 const HeroSection = () => {
-    const navRef = useRef(null);
-
-    useEffect(() => {
-      const target = navRef.current;
-      if (!target) return;
-
-      const startY = window.scrollY;
-      const targetY = target.getBoundingClientRect().top + window.scrollY;
-      const duration = 1200;
-      let startTime = null;
-
-      const easeInOut = (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
-
-      const animate = (timestamp) => {
-        if (!startTime) startTime = timestamp;
-        const elapsed = timestamp - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        window.scrollTo(0, startY + (targetY - startY) * easeInOut(progress));
-        if (progress < 1) requestAnimationFrame(animate);
-      };
-
-      requestAnimationFrame(animate);
-    }, []);
   return (
     <section
       id="hero-nav"
       className="relative isolate w-full min-h-screen overflow-hidden"
-      ref={navRef}
     >
       <Suspense
         fallback={
@@ -69,7 +45,7 @@ const HeroSection = () => {
       <div className="absolute inset-0 z-20 h-screen w-full p-10" id="hero-nav">
         {/* Navbar */}
         <Navbar />
-        
+
         {/* Hero Section */}
         <div className="mt-10 flex h-[80%] items-center justify-evenly">
           <div className="relative top-[6vh] flex h-full flex-col flex-wrap gap-4 p-4 pl-4 md:w-[60%]">

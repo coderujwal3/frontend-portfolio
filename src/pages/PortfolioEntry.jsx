@@ -6,35 +6,78 @@ import { ChevronsDown } from "lucide-react";
 const PortfolioEntry = () => {
   const [lettersDone, setLettersDone] = useState(false);
   const wrapperRef = useRef(null);
+  const animationFrameRef = useRef(null);
+  const scrollTimerRef = useRef(null);
+  const hasUserMovedRef = useRef(false);
 
   const handleAnimationComplete = () => {
     setLettersDone(true);
   };
 
-  // smooth scroll helper
-  const scrollToId = (id, duration = 1000) => {
+  const scrollToId = (id, duration = 1200) => {
     const target = document.getElementById(id);
-    if (!target) return;
+    if (!target || hasUserMovedRef.current) return;
+
     const startY = window.scrollY;
     const targetY = target.getBoundingClientRect().top + window.scrollY;
-    const ease = (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
+    const easeInOut = (t) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t);
     let startTime = null;
 
-    const step = (timestamp) => {
+    const animate = (timestamp) => {
+      if (hasUserMovedRef.current) return;
       if (!startTime) startTime = timestamp;
+
       const elapsed = timestamp - startTime;
       const progress = Math.min(elapsed / duration, 1);
-      window.scrollTo(0, startY + (targetY - startY) * ease(progress));
-      if (progress < 1) requestAnimationFrame(step);
+      const nextY = startY + (targetY - startY) * easeInOut(progress);
+
+      window.scrollTo({ top: nextY, behavior: "auto" });
+
+      if (progress < 1) {
+        animationFrameRef.current = requestAnimationFrame(animate);
+      }
     };
 
-    requestAnimationFrame(step);
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+    }
+
+    animationFrameRef.current = requestAnimationFrame(animate);
   };
+
+  useEffect(() => {
+    const handleUserInteraction = () => {
+      hasUserMovedRef.current = true;
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      if (scrollTimerRef.current) {
+        clearTimeout(scrollTimerRef.current);
+      }
+    };
+
+    window.addEventListener("wheel", handleUserInteraction, { passive: true });
+    window.addEventListener("touchstart", handleUserInteraction, {
+      passive: true,
+    });
+    window.addEventListener("keydown", handleUserInteraction);
+
+    return () => {
+      window.removeEventListener("wheel", handleUserInteraction);
+      window.removeEventListener("touchstart", handleUserInteraction);
+      window.removeEventListener("keydown", handleUserInteraction);
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+      if (scrollTimerRef.current) {
+        clearTimeout(scrollTimerRef.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (!lettersDone) return;
 
-    // small lift animation for emphasis
     const el = wrapperRef.current;
     if (el) {
       el.style.transition = "transform 700ms cubic-bezier(0.22,1,0.36,1)";
@@ -44,11 +87,17 @@ const PortfolioEntry = () => {
       }, 400);
     }
 
-    const timer = setTimeout(() => {
-      scrollToId("hero-nav", 1000);
+    if (hasUserMovedRef.current) return;
+
+    scrollTimerRef.current = setTimeout(() => {
+      scrollToId("hero-nav", 1200);
     }, 200);
 
-    return () => clearTimeout(timer);
+    return () => {
+      if (scrollTimerRef.current) {
+        clearTimeout(scrollTimerRef.current);
+      }
+    };
   }, [lettersDone]);
 
   return (
