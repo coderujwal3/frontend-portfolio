@@ -71,10 +71,14 @@ const EducationSection = () => {
                       </span>
                     </p>
                     <p className="mt-3 text-sm text-slate-200">
-                      CGPA:{" "}
-                      <span className="text-sm font-semibold text-slate-400">
-                        {item.CGPA || "N/A"}
-                      </span>
+                      {item.CGPA && (
+                        <>
+                          CGPA:{" "}
+                          <span className="text-sm font-semibold text-slate-400">
+                            {item.CGPA}
+                          </span>
+                        </>
+                      )}
                     </p>
                     <p className="mt-4 leading-7 text-slate-300">
                       {item.description}

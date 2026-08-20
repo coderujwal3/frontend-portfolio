@@ -15,11 +15,11 @@ const App = () => {
       wheelMultiplier: 1,
       touchMultiplier: 1.2,
       infinite: false,
-      lerp: 0.1,
+      lerp: 0.05,
     });
 
     const updateScroll = (time) => {
-      lenis.raf(time * 1000);
+      lenis.raf(time * 3000);
     };
 
     lenis.on("scroll", ScrollTrigger.update);

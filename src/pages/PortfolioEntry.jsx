@@ -90,7 +90,7 @@ const PortfolioEntry = () => {
     if (hasUserMovedRef.current) return;
 
     scrollTimerRef.current = setTimeout(() => {
-      scrollToId("hero-nav", 1200);
+      scrollToId("hero-nav", 2000);
     }, 200);
 
     return () => {
