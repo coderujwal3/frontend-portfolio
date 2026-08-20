@@ -1,5 +1,5 @@
 import { Mail, MapPin, Phone, Send } from "lucide-react";
-import LightRays from "./LightRays";
+import LightRays from "../component/LightRays";
 
 const contactDetails = [
   {

@@ -1,10 +1,10 @@
 import React from "react";
 import ProfileEntry from "./PortfolioEntry";
 import HeroSection from "../component/HeroSection";
-import AboutSection from "../component/AboutSection";
-import EducationSection from "../component/EducationSection";
-import ProjectsSection from "../component/ProjectsSection";
-import ContactSection from "../component/ContactSection";
+import AboutSection from "./AboutSection";
+import EducationSection from "./EducationSection";
+import ProjectsSection from "./ProjectsSection";
+import ContactSection from "./ContactSection";
 
 const Hero = () => {
   return (
